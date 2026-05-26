@@ -26,9 +26,27 @@ If any of these fails, fix it before Day 1 — we won't have time to troubleshoo
 
 ---
 
+## Where MCP config lives in Claude Code
+
+Claude Code supports MCP servers at **three scopes**. Worth knowing now so the rest of the workshop makes sense:
+
+| Scope | Where it's stored | Who sees it |
+|---|---|---|
+| **Project** | `.mcp.json` at the project root | Shared with your team via git. Claude Code prompts you to approve servers the first time you open the project. |
+| **Local** *(default of `claude mcp add`)* | A per-project entry in `~/.claude.json` | Just you, just this project. Good for personal dev or secrets you don't want in git. |
+| **User** | A user-level entry in `~/.claude.json` | Just you, but available across **all** your projects. Good for personal utility MCPs you want everywhere. |
+
+You can add at any scope via the CLI: `claude mcp add --scope project|local|user`. Precedence when the same name appears in multiple scopes is **local → project → user**.
+
+**For this workshop we use the project scope (`.mcp.json`)**: same config for everyone, easy to inspect on disk, and the approval prompt is a nice teaching moment about MCP security.
+
+> Want one of these MCPs available across **all** your projects after the workshop? Add it at user scope: `claude mcp add --scope user dad-jokes node "C:/path/to/dad-jokes-mcp/build/index.js"`.
+
+---
+
 ## Day 1 — Hands-On Snippets
 
-During Day 1 you'll create a project-scoped MCP config file called **`.mcp.json`** in a workshop folder and open Claude Code there. Both MCP servers (DeepWiki + Dad Jokes) end up in that same file side-by-side. The snippets below are what you'll paste — you don't need to type them in advance.
+During Day 1 you'll create a `.mcp.json` in a workshop folder and open Claude Code there. Both MCP servers (DeepWiki + Dad Jokes) end up in that same file side-by-side. The snippets below are what you'll paste — you don't need to type them in advance.
 
 > Pick (or create) any folder you want to be your "workshop folder", e.g. `C:\workshop\mcp-day1\` or `~/workshop/mcp-day1/`. `.mcp.json` goes in that folder's root. Claude Code will prompt you to approve the servers the first time you open the project.
 
